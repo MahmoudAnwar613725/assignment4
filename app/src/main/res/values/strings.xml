@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Walmart</string>
+    <string name="tv_lbl_beauty">Beauty</string>
+    <string name="tv_lbl_electronics">Electronics</string>
+    <string name="tv_lbl_clothes">Clothes</string>
+    <string name="tv_lbl_food">Food</string>
+</resources>
