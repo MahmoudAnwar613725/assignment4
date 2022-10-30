@@ -5,16 +5,19 @@ import android.os.Bundle
 import android.widget.Toast
 import com.course.walmart.databinding.ActivityShoppingCategoryBinding.inflate
 import com.course.walmart.databinding.ActivityShoppingCategoryBinding
+import com.course.walmart.model.User
 
-class ShoppingCategory : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShoppingCategoryBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
         setUserName(intent.getStringExtra("name"))
-       setOnCategoriesClickListners()
+        setOnCategoriesClickListners()
     }
 
     private fun setOnCategoriesClickListners() {

@@ -82,7 +82,7 @@
         android:clickable="true"
         android:focusable="true"
         android:gravity="right"
-        android:minHeight="48dp"
+         android:minHeight="48dp"
         android:text="Forgot password?" />
 
     <Space

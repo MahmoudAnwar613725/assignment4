@@ -1,5 +1,6 @@
 package com.course.walmart
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -11,26 +12,26 @@ import com.course.walmart.model.User
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private var list = arrayListOf(
+    var usersList = arrayListOf(
         User("Mahmoud", "Mohamed", "moud@miu.edu", "123"),
         User("Mahmoud", "Anwar", "anwar@miu.edu", "rrr"),
         User("Judy", "ElSherif", "judy@gmail.com", "333")
     )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        //add user if it comes from create account activity and login directly
+        addNewUser()
         binding.tvForgetPassword.setOnClickListener {
             if (binding.tlEmail.editText?.text?.isEmpty() == true) {
                 Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            sendEmail(binding.tvEmail.text.toString())
+            sendEmail(binding.tlEmail.editText?.text.toString())
         }
-
         binding.btnSignIn.setOnClickListener {
             if (!validateField())
                 return@setOnClickListener
@@ -46,9 +47,22 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * check if user extra has data this means it comes from create account
+     * add user to memeory database
+     * finish activity and sign in automatically
+     */
+    private fun addNewUser() {
+        val user: User? = intent.getSerializableExtra("user") as User?
+        user?.let {
+            usersList.add(it)
+            signIn(user.userName,user.password)
+        }
+    }
+
     private fun signIn(email: String, password: String) {
         if (checkIfUserExist(email, password)) {
-            startActivity(Intent(this, ShoppingCategory::class.java).putExtra("name", email))
+            startActivity(Intent(this, MainActivity::class.java).putExtra("name", email))
             finish()
         } else {
             Toast.makeText(
@@ -61,7 +75,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkIfUserExist(email: String, password: String): Boolean {
         var result: Boolean =
-            list.any {
+              usersList.any {
                 it.userName.equals(
                     email,
                     true
@@ -85,17 +99,54 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("QueryPermissionsNeeded")
     private fun sendEmail(email: String) {
-        val intent = Intent(Intent.ACTION_SENDTO)
-        intent.data = Uri.parse("mailto:")
-        intent.putExtra(Intent.EXTRA_EMAIL, email)
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Forgot Password")
-        intent.putExtra(
-            Intent.EXTRA_TEXT, "Forgot Password for walmart app, " +
-                    "for resetting contact Administrator or use this code 10001."
-        );
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
+        var pass: String = getPassword(email)
+        if (getPassword(email).isEmpty()) {
+            Toast.makeText(this, "this email is not registered on ourdatabase", Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.data = Uri.parse("mailto:")
+            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf<String>(email))
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Forgot Password")
+            intent.putExtra(
+                Intent.EXTRA_TEXT, "Forgot Password for walmart app, " +
+                        "your password is $pass"
+            )
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+            }
         }
+
     }
+
+    private fun getPassword(email: String): String {
+        val s = usersList.find { it.userName.equals(email, true) }
+        return s?.password ?: ""
+    }
+
+    /*  @SuppressLint("QueryPermissionsNeeded")
+      fun onForgetPasswordClick(view: View) {
+          val email = binding.tlEmail.editText?.text.toString().trim()
+          val intent = Intent(Intent.ACTION_SENDTO)
+          intent.data = Uri.parse("mailto:")
+          intent.putExtra(Intent.EXTRA_EMAIL, arrayOf<String>(email))
+          intent.putExtra(Intent.EXTRA_SUBJECT, "subject")
+          intent.putExtra(Intent.EXTRA_TEXT, "message")
+
+          if (intent.resolveActivity(packageManager) != null) {
+              startActivity(intent)
+          }
+          try {
+              //start email intent
+              startActivity(Intent.createChooser(intent, "Choose Email Client..."))
+          }
+          catch (e: Exception){
+              //if any thing goes wrong for example no email client application or any exception
+              //get and show exception message
+              Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+          }
+
+      }*/
 }

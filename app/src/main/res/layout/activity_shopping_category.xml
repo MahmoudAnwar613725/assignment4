@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/shopping"
     android:orientation="vertical"
-    tools:context=".ShoppingCategory"
+    tools:context=".MainActivity"
     tools:ignore="UselessParent">
 
 
