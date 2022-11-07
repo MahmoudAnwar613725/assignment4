@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".ui.ProductDetailActivity"
+    tools:ignore="UselessParent">
+
+    <ImageView
+        android:id="@+id/detail_product_image"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="fitCenter" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvProdTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_centerVertical="true"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-black"
+                android:maxLines="2"
+                android:text="product name"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tvProdPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif"
+                android:text="2000 $"
+                android:textColor="@color/black"
+                android:textSize="25sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvPRodColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="color"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/tvProdNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="21212"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvProdDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="bla bla bla bla bla bla bla"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

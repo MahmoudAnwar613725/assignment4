@@ -1,4 +1,4 @@
-package com.course.walmart
+package com.course.walmart.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent

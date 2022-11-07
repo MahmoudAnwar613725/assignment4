@@ -1,10 +1,12 @@
-package com.course.walmart
+package com.course.walmart.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.course.walmart.databinding.ActivityShoppingCategoryBinding.inflate
 import com.course.walmart.databinding.ActivityShoppingCategoryBinding
+import com.course.walmart.databinding.ActivityShoppingCategoryBinding.inflate
+
 import com.course.walmart.model.User
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private fun setOnCategoriesClickListners() {
 
         binding.ivElectronics.setOnClickListener {
-            Toast.makeText(this, "you have selected Electronics", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ProductsActivity::class.java))
 
         }
 
